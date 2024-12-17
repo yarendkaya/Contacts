@@ -31,7 +31,7 @@ fun DetailScreen(person: Contacts) {
     }
 
     fun update(personId: Int, personName: String, personNumber: String) {
-        Log.e("Detail", "$personId - $personName - $personNumber")
+        Log.e("Update", "$personId - $personName - $personNumber")
     }
 
     Scaffold(topBar = {

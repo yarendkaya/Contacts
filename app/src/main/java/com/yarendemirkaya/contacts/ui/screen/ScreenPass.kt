@@ -20,7 +20,7 @@ fun ScreenPass() {
             RegisterPage()
         }
         composable(
-            "detail/person",
+            "detail/{person}",
             arguments = listOf(navArgument("person") { type = NavType.StringType })
         ) {
             val json = it.arguments?.getString("person")
