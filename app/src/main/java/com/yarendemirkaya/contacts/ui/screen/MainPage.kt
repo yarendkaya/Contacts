@@ -79,20 +79,21 @@ fun MainPage(navController: NavController) {
                             value = tfSearch.value,
                             onValueChange = {
                                 tfSearch.value = it
-                                search(tfSearch.value)
+                                search(it)
                             },
                             label = { Text(text = "Search") },
                             colors = TextFieldDefaults.textFieldColors(
                                 containerColor = Color.Transparent,
                                 focusedLabelColor = Color.White,
-                                focusedIndicatorColor = Color.Black,
+                                focusedIndicatorColor = Color.White,
+                                unfocusedLabelColor = Color.Black,
                                 unfocusedIndicatorColor = Color.White
 
                             )
                         )
-                    } else
+                    } else {
                         Text(text = "Contacts")
-
+                    }
                 },
                 actions = {
                     if (isSearchable.value) {
@@ -105,12 +106,13 @@ fun MainPage(navController: NavController) {
                                 contentDescription = "Close"
                             )
                         }
-                    }
-                    IconButton(onClick = { isSearchable.value = true }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_search),
-                            contentDescription = "Search"
-                        )
+                    } else {
+                        IconButton(onClick = { isSearchable.value = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_search),
+                                contentDescription = "Search"
+                            )
+                        }
                     }
                 })
         },
@@ -163,12 +165,11 @@ fun MainPage(navController: NavController) {
                                         message = "${person.personName} delete?",
                                         actionLabel = "Yes"
                                     )
-                                    if(snackbar== SnackbarResult.ActionPerformed){
+                                    if (snackbar == SnackbarResult.ActionPerformed) {
                                         delete(person.personId)
 
                                     }
                                 }
-
                             }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_close),
