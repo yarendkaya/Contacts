@@ -8,16 +8,22 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.yarendemirkaya.contacts.data.entity.Contacts
+import com.yarendemirkaya.contacts.ui.viewmodel.DetailViewModel
+import com.yarendemirkaya.contacts.ui.viewmodel.MainPageViewModel
+import com.yarendemirkaya.contacts.ui.viewmodel.RegisterViewModel
 
 @Composable
-fun ScreenPass() {
+fun ScreenPass(mainPageViewModel: MainPageViewModel,
+               registerViewModel: RegisterViewModel,
+               detailViewModel: DetailViewModel
+) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
             MainPage(navController = navController)
         }
         composable("register") {
-            RegisterPage()
+            RegisterPage(registerViewModel)
         }
         composable(
             "detail/{person}",
@@ -25,7 +31,7 @@ fun ScreenPass() {
         ) {
             val json = it.arguments?.getString("person")
             val personGson = Gson().fromJson(json, Contacts::class.java)
-            DetailScreen(personGson)
+            DetailScreen(personGson,detailViewModel)
         }
     }
 }

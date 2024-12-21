@@ -18,10 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.yarendemirkaya.contacts.data.entity.Contacts
+import com.yarendemirkaya.contacts.ui.viewmodel.DetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(person: Contacts) {
+fun DetailScreen(person: Contacts, viewModel: DetailViewModel) {
     val tfName = remember { mutableStateOf("") }
     val tfNumber = remember { mutableStateOf("") }
 

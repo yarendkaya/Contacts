@@ -16,10 +16,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.yarendemirkaya.contacts.ui.viewmodel.RegisterViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterPage() {
+fun RegisterPage(registerViewModel: RegisterViewModel) {
     val tfName = remember { mutableStateOf("") }
     val tfNumber = remember { mutableStateOf("") }
 
