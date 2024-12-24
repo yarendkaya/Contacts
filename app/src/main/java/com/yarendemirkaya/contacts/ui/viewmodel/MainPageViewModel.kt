@@ -4,12 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yarendemirkaya.contacts.data.entity.Contacts
 import com.yarendemirkaya.contacts.data.repo.ContactsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainPageViewModel : ViewModel() {
-    var contactsRepository = ContactsRepository()
+@HiltViewModel
+class MainPageViewModel @Inject constructor(private var contactsRepository: ContactsRepository) : ViewModel() {
     var contactsList = MutableLiveData<List<Contacts>>()
 
     fun delete(personId: Int) {
@@ -31,8 +33,8 @@ class MainPageViewModel : ViewModel() {
 
     fun search(searchWord: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            contactsRepository.search(searchWord)
             contactsList.value = contactsRepository.search(searchWord)
         }
     }
+
 }

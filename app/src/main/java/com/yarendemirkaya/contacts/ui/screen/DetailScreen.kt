@@ -30,7 +30,6 @@ fun DetailScreen(person: Contacts, viewModel: DetailViewModel) {
         tfNumber.value = person.personNumber
     }
 
-
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = "Detail") })
     })

@@ -2,9 +2,9 @@ package com.yarendemirkaya.contacts.data.repo
 
 import com.yarendemirkaya.contacts.data.datasource.ContactsDataSource
 import com.yarendemirkaya.contacts.data.entity.Contacts
+import javax.inject.Inject
 
-class ContactsRepository {
-    private val contactsDataSource = ContactsDataSource()
+class ContactsRepository @Inject constructor(private val contactsDataSource: ContactsDataSource) {
     suspend fun register(personName: String, personNumber: String) =
         contactsDataSource.register(personName, personNumber)
 

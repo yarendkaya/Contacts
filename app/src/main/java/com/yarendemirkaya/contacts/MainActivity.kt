@@ -17,7 +17,9 @@ import com.yarendemirkaya.contacts.ui.theme.ContactsTheme
 import com.yarendemirkaya.contacts.ui.viewmodel.DetailViewModel
 import com.yarendemirkaya.contacts.ui.viewmodel.MainPageViewModel
 import com.yarendemirkaya.contacts.ui.viewmodel.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     val mainPageViewModel: MainPageViewModel by viewModels()
     val registerViewModel: RegisterViewModel by viewModels()

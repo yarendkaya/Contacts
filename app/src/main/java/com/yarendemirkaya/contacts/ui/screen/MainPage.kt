@@ -69,7 +69,6 @@ fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel)
                                 focusedIndicatorColor = Color.White,
                                 unfocusedLabelColor = Color.Black,
                                 unfocusedIndicatorColor = Color.White
-
                             )
                         )
                     } else {
@@ -138,7 +137,6 @@ fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel)
                             Column(modifier = Modifier.padding(all = 10.dp)) {
                                 Text(text = person.personName, fontSize = 20.sp)
                                 Text(text = person.personNumber)
-
                             }
                             IconButton(onClick = {
                                 scope.launch {
@@ -148,7 +146,6 @@ fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel)
                                     )
                                     if (snackbar == SnackbarResult.ActionPerformed) {
                                         mainPageViewModel.delete(person.personId)
-
                                     }
                                 }
                             }) {
