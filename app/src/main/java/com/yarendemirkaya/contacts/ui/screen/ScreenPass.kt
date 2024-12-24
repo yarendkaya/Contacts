@@ -20,7 +20,7 @@ fun ScreenPass(mainPageViewModel: MainPageViewModel,
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
-            MainPage(navController = navController)
+            MainPage(navController = navController, mainPageViewModel)
         }
         composable("register") {
             RegisterPage(registerViewModel)

@@ -1,8 +1,38 @@
 package com.yarendemirkaya.contacts.ui.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yarendemirkaya.contacts.data.entity.Contacts
 import com.yarendemirkaya.contacts.data.repo.ContactsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class MainPageViewModel:ViewModel() {
-    var contactsRepository= ContactsRepository()
+class MainPageViewModel : ViewModel() {
+    var contactsRepository = ContactsRepository()
+    var contactsList = MutableLiveData<List<Contacts>>()
+
+    fun delete(personId: Int) {
+        CoroutineScope(Dispatchers.Main).launch {
+            contactsRepository.delete(personId)
+        }
+    }
+
+    init {
+        uploadContacts()
+    }
+
+    private fun uploadContacts() {
+        CoroutineScope(Dispatchers.Main).launch {
+            contactsRepository.uploadContacts()
+            contactsList.value = contactsRepository.uploadContacts()
+        }
+    }
+
+    fun search(searchWord: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            contactsRepository.search(searchWord)
+            contactsList.value = contactsRepository.search(searchWord)
+        }
+    }
 }

@@ -1,6 +1,5 @@
 package com.yarendemirkaya.contacts.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -24,8 +22,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -38,38 +35,22 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import com.yarendemirkaya.contacts.R
-import com.yarendemirkaya.contacts.data.entity.Contacts
+import com.yarendemirkaya.contacts.ui.viewmodel.MainPageViewModel
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainPage(navController: NavController) {
+fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel) {
     val isSearchable = remember { mutableStateOf(false) }
     val tfSearch = remember { mutableStateOf("") }
-    val contactsList = remember { mutableStateListOf<Contacts>() }
+    val contactsList = mainPageViewModel.contactsList.observeAsState(listOf()).value
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember {
         SnackbarHostState()
     }
-    LaunchedEffect(key1 = true) {
-        val k1 = Contacts(1, "yaren", "22")
-        val k2 = Contacts(2, "ali", "23")
-        val k3 = Contacts(3, "mehmet", "29")
-        contactsList.add(k1)
-        contactsList.add(k2)
-        contactsList.add(k3)
-    }
 
-
-    fun search(searchWord: String) {
-        Log.e("Search", searchWord)
-    }
-
-    fun delete(personId: Int) {
-        Log.e("Delete", personId.toString())
-    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -79,7 +60,7 @@ fun MainPage(navController: NavController) {
                             value = tfSearch.value,
                             onValueChange = {
                                 tfSearch.value = it
-                                search(it)
+                                mainPageViewModel.search(it)
                             },
                             label = { Text(text = "Search") },
                             colors = TextFieldDefaults.textFieldColors(
@@ -166,7 +147,7 @@ fun MainPage(navController: NavController) {
                                         actionLabel = "Yes"
                                     )
                                     if (snackbar == SnackbarResult.ActionPerformed) {
-                                        delete(person.personId)
+                                        mainPageViewModel.delete(person.personId)
 
                                     }
                                 }

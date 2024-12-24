@@ -1,6 +1,5 @@
 package com.yarendemirkaya.contacts.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,9 +23,7 @@ fun RegisterPage(registerViewModel: RegisterViewModel) {
     val tfName = remember { mutableStateOf("") }
     val tfNumber = remember { mutableStateOf("") }
 
-    fun register(personName: String, personNumber: String) {
-        Log.e("Register", "$personName - $personNumber")
-    }
+
 
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = "Register") })
@@ -49,7 +46,7 @@ fun RegisterPage(registerViewModel: RegisterViewModel) {
                 label = { Text(text = "Number") })
 
             Button(onClick = {
-                register(tfName.value, tfNumber.value)
+                registerViewModel.register(tfName.value, tfNumber.value)
             }
             ) {
                 Text(text = "Save")

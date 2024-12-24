@@ -1,6 +1,5 @@
 package com.yarendemirkaya.contacts.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,9 +30,6 @@ fun DetailScreen(person: Contacts, viewModel: DetailViewModel) {
         tfNumber.value = person.personNumber
     }
 
-    fun update(personId: Int, personName: String, personNumber: String) {
-        Log.e("Update", "$personId - $personName - $personNumber")
-    }
 
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = "Detail") })
@@ -56,7 +52,7 @@ fun DetailScreen(person: Contacts, viewModel: DetailViewModel) {
                 label = { Text(text = "Number") })
 
             Button(onClick = {
-                update(person.personId, tfName.value, tfNumber.value)
+                viewModel.update(person.personId, tfName.value, tfNumber.value)
             }
             ) {
                 Text(text = "Update")
