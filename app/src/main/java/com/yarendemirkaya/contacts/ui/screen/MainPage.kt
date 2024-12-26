@@ -22,6 +22,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,11 +45,14 @@ import kotlinx.coroutines.launch
 fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel) {
     val isSearchable = remember { mutableStateOf(false) }
     val tfSearch = remember { mutableStateOf("") }
-    val contactsList = mainPageViewModel.contactsList.observeAsState(listOf()).value
+    val contactsList = mainPageViewModel.contactsList.observeAsState(listOf())
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember {
         SnackbarHostState()
+    }
+    LaunchedEffect(key1 = true) {
+        mainPageViewModel.uploadContacts()
     }
 
     Scaffold(
@@ -119,9 +123,9 @@ fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel)
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            items(count = contactsList.count(),
+            items(count = contactsList.value.count(),
                 itemContent = {
-                    val person = contactsList[it]
+                    val person = contactsList.value[it]
                     Card(modifier = Modifier.padding(all = 5.dp)) {
                         Row(
                             modifier = Modifier
@@ -135,17 +139,17 @@ fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel)
                         ) {
 
                             Column(modifier = Modifier.padding(all = 10.dp)) {
-                                Text(text = person.kisi_ad, fontSize = 20.sp)
-                                Text(text = person.kisi_tel)
+                                Text(text = person.personName, fontSize = 20.sp)
+                                Text(text = person.personNumber)
                             }
                             IconButton(onClick = {
                                 scope.launch {
                                     val snackbar = snackbarHostState.showSnackbar(
-                                        message = "${person.kisi_ad} delete?",
+                                        message = "${person.personName} delete?",
                                         actionLabel = "Yes"
                                     )
                                     if (snackbar == SnackbarResult.ActionPerformed) {
-                                        mainPageViewModel.delete(person.kisi_id)
+                                        mainPageViewModel.delete(person.personId)
                                     }
                                 }
                             }) {

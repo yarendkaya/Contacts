@@ -3,8 +3,8 @@ package com.yarendemirkaya.contacts.retrofit
 class ApiUtils {
     companion object{
         val BASE_URL="http://kasimadalan.pe.hu/"
-        fun getKisilerDao():KisilerDAO{
-            return RetrofitClient.getClient(BASE_URL).create(KisilerDAO::class.java)
+        fun getPersonDao():PersonDAO{
+            return RetrofitClient.getClient(BASE_URL).create(PersonDAO::class.java)
         }
     }
 }

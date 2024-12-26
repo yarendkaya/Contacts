@@ -3,7 +3,7 @@ package com.yarendemirkaya.contacts.di
 import com.yarendemirkaya.contacts.data.datasource.ContactsDataSource
 import com.yarendemirkaya.contacts.data.repo.ContactsRepository
 import com.yarendemirkaya.contacts.retrofit.ApiUtils
-import com.yarendemirkaya.contacts.retrofit.KisilerDAO
+import com.yarendemirkaya.contacts.retrofit.PersonDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,13 +21,13 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providePersonDataSource(kisilerDAO: KisilerDAO): ContactsDataSource {
-        return ContactsDataSource(kisilerDAO)
+    fun providePersonDataSource(personDAO: PersonDAO): ContactsDataSource {
+        return ContactsDataSource(personDAO)
     }
     @Provides
     @Singleton
-    fun provideKisilerDAO(): KisilerDAO {
-        return ApiUtils.getKisilerDao()
+    fun providePersonDAO(): PersonDAO {
+        return ApiUtils.getPersonDao()
     }
 
 

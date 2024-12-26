@@ -23,8 +23,6 @@ fun RegisterPage(registerViewModel: RegisterViewModel) {
     val tfName = remember { mutableStateOf("") }
     val tfNumber = remember { mutableStateOf("") }
 
-
-
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = "Register") })
     })

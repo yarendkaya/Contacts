@@ -15,6 +15,10 @@ class MainPageViewModel @Inject constructor(private var contactsRepository: Cont
     ViewModel() {
     var contactsList = MutableLiveData<List<Contacts>>()
 
+    init {
+        uploadContacts()
+    }
+
     fun delete(personId: Int) {
         CoroutineScope(Dispatchers.Main).launch {
             contactsRepository.delete(personId)
@@ -22,11 +26,7 @@ class MainPageViewModel @Inject constructor(private var contactsRepository: Cont
         }
     }
 
-    init {
-        uploadContacts()
-    }
-
-    private fun uploadContacts() {
+     fun uploadContacts() {
         CoroutineScope(Dispatchers.Main).launch {
 //            contactsRepository.uploadContacts()
             contactsList.value = contactsRepository.uploadContacts()

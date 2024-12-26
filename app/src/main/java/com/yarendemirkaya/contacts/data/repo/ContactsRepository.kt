@@ -5,6 +5,9 @@ import com.yarendemirkaya.contacts.data.entity.Contacts
 import javax.inject.Inject
 
 class ContactsRepository @Inject constructor(private val contactsDataSource: ContactsDataSource) {
+    suspend fun uploadContacts(): List<Contacts> =
+        contactsDataSource.uploadContacts()
+
     suspend fun register(personName: String, personNumber: String) =
         contactsDataSource.register(personName, personNumber)
 
@@ -14,8 +17,6 @@ class ContactsRepository @Inject constructor(private val contactsDataSource: Con
     suspend fun delete(personId: Int) =
         contactsDataSource.delete(personId)
 
-    suspend fun uploadContacts(): List<Contacts> =
-        contactsDataSource.uploadContacts()
 
     suspend fun search(searchWord: String): List<Contacts> =
         contactsDataSource.search(searchWord)

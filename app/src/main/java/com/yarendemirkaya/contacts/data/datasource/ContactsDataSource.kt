@@ -1,29 +1,29 @@
 package com.yarendemirkaya.contacts.data.datasource
 
-import android.util.Log
 import com.yarendemirkaya.contacts.data.entity.Contacts
-import com.yarendemirkaya.contacts.retrofit.KisilerDAO
+import com.yarendemirkaya.contacts.retrofit.PersonDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ContactsDataSource(var kisilerDao: KisilerDAO) {
-    suspend fun register(kisi_ad: String, kisi_tel: String) {
-       kisilerDao.kaydet(kisi_ad, kisi_tel)
+class ContactsDataSource(var personDao: PersonDAO) {
+    suspend fun register(personName: String, personNumber: String) {
+       personDao.save(personName, personNumber)
     }
 
+
     suspend fun update(personId: Int, personName: String, personNumber: String) {
-        kisilerDao.guncelle(personId, personName, personNumber)
+        personDao.update(personId, personName, personNumber)
     }
 
     suspend fun delete(personId: Int) {
-        kisilerDao.sil(personId)
+        personDao.delete(personId)
     }
 
     suspend fun uploadContacts() :List<Contacts> = withContext(Dispatchers.IO) {
-        return@withContext kisilerDao.kisileriYukle().kisiler
+        return@withContext personDao.loadPersons().contacts
     }
 
     suspend fun search(searchWord: String) :List<Contacts> = withContext(Dispatchers.IO) {
-        return@withContext kisilerDao.search(searchWord).kisiler
+        return@withContext personDao.search(searchWord).contacts
     }
 }
