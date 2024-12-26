@@ -26,8 +26,8 @@ fun DetailScreen(person: Contacts, viewModel: DetailViewModel) {
     val tfNumber = remember { mutableStateOf("") }
 
     LaunchedEffect(key1 = true) {
-        tfName.value = person.personName
-        tfNumber.value = person.personNumber
+        tfName.value = person.kisi_ad
+        tfNumber.value = person.kisi_tel
     }
 
     Scaffold(topBar = {
@@ -51,7 +51,7 @@ fun DetailScreen(person: Contacts, viewModel: DetailViewModel) {
                 label = { Text(text = "Number") })
 
             Button(onClick = {
-                viewModel.update(person.personId, tfName.value, tfNumber.value)
+                viewModel.update(person.kisi_id, tfName.value, tfNumber.value)
             }
             ) {
                 Text(text = "Update")

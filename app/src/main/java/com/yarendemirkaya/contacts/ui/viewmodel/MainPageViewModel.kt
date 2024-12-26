@@ -11,12 +11,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainPageViewModel @Inject constructor(private var contactsRepository: ContactsRepository) : ViewModel() {
+class MainPageViewModel @Inject constructor(private var contactsRepository: ContactsRepository) :
+    ViewModel() {
     var contactsList = MutableLiveData<List<Contacts>>()
 
     fun delete(personId: Int) {
         CoroutineScope(Dispatchers.Main).launch {
             contactsRepository.delete(personId)
+            uploadContacts()
         }
     }
 
@@ -26,15 +28,17 @@ class MainPageViewModel @Inject constructor(private var contactsRepository: Cont
 
     private fun uploadContacts() {
         CoroutineScope(Dispatchers.Main).launch {
-            contactsRepository.uploadContacts()
+//            contactsRepository.uploadContacts()
             contactsList.value = contactsRepository.uploadContacts()
         }
     }
 
     fun search(searchWord: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            contactsList.value = contactsRepository.search(searchWord)
+            try {
+                contactsList.value = contactsRepository.search(searchWord)
+            } catch (_: Exception) {
+            }
         }
     }
-
 }

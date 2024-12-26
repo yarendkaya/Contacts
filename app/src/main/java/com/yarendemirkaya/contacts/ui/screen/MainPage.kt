@@ -135,17 +135,17 @@ fun MainPage(navController: NavController, mainPageViewModel: MainPageViewModel)
                         ) {
 
                             Column(modifier = Modifier.padding(all = 10.dp)) {
-                                Text(text = person.personName, fontSize = 20.sp)
-                                Text(text = person.personNumber)
+                                Text(text = person.kisi_ad, fontSize = 20.sp)
+                                Text(text = person.kisi_tel)
                             }
                             IconButton(onClick = {
                                 scope.launch {
                                     val snackbar = snackbarHostState.showSnackbar(
-                                        message = "${person.personName} delete?",
+                                        message = "${person.kisi_ad} delete?",
                                         actionLabel = "Yes"
                                     )
                                     if (snackbar == SnackbarResult.ActionPerformed) {
-                                        mainPageViewModel.delete(person.personId)
+                                        mainPageViewModel.delete(person.kisi_id)
                                     }
                                 }
                             }) {
